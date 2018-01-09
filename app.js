@@ -1,28 +1,97 @@
+$(document).ready(function () {
+    // global varibles
+    var topics = ['hockey', 'futball', 'track', 'horse back', 'beach volleyball', 'lacrosse',
+       'softball', 'swim', 'fireworks', 'kites', 'airplanes', 'shoes',
+        'clothes', 'rollercoaster', 'coding', 'Denvor', 'snow'
+    ];
 
-    var sports = ['futball', 'baseball', 'football', 'volleyball', 'softball', 'lacrosse', 'track', 'beach voleyball', 'swim', 'horseback'];
-for (var i = 0; i <sports.length; i++) {
-    document.write("<div>");
-        document.write("<input type='button' value='" + sports[i] + "'/>");
-}
-function getGifs() {
-    var input = $('#search').val().trim();
-    var api_key = '3K2ZmyEMrXGGyR7EGBGnbti1HZNk2TZL';
-    var url = 'http://api.giphy.com/v1/gifs/search?api_key=' + api_key + '&q=' + input + '&limit=10';
-    
-    $.ajax({
-        url: url
-    }).done(function (res) {
-        var gifs = res.data;
 
-        $('#gifs').empty();
+    // functions
 
-        for (var i = 0; i < gifs.length; i++) {
-            var url = gifs[i].images.downsized.url;
+    // create buttons for elements
+    var createBtn = function () {
+        // remove all elements in topicBtn
+        $('#topicBtn').empty();
+        // create buttons for element in the array
+        for (var i = 0; i < topics.length; i++) {
+            // create new buttons
+            var newBtn = $('<button>');
+            // button attribute
+            newBtn.attr('data-type', topics[i]);
+            // add class to button
+            newBtn.attr('class', 'giphy btn-success');
+            // button name 
+            newBtn.text(topics[i]);
+            // input button on DOM
+            $('#topicBtn').append(newBtn);
 
-            $('#gifs').append($('<div>').css('background-image', 'url(' + url + ')'));
         }
+    }
 
-    });
-}
+    var submit = function () {
+        //    when submit btn is clicked...
+        $('#submit-btn').on('click', function (event) {
+            // prevent from default form/ input from happening
+            event.preventDefault();
+            //   get input value
+            var userinputVal = $('#userInput').val();
+            //  push user input to array
+            topics.push(userinputVal);
+            // create new buttons
+            createBtn();
+            //    test
+            console.log(userinputVal);
+            console.log(topics);
 
-$('#submit').on('click', getGifs);
+        });
+        //click handler
+        // when the new images are clicked, if the images is animating, swap the data-still attribute value with the src attribute
+        //
+    }
+
+    var displayGiphy = function () {
+        // gets value of button clicked
+        var btnVal = $(this).attr('data-type');
+        // api URL and key
+        var apiKey = "dc6zaTOxFJmzC";
+        var apiUrl = "http://api.giphy.com/v1/gifs/search?q=" + btnVal+  "&api_key=" + apiKey;
+        $.ajax({
+            url: apiUrl,
+            method: 'GET'
+        }).done(function(response) {
+            // remove images when a new button is clicked
+            $('.giphyImg').empty();
+
+            for (var i = 0; i < 10; i++) {
+                // still & animated images
+                stillImgUrl = response['data'][i]['images']['fixed_height_still']['url'];
+                animateImgUrl = response['data'][i]['images']['fixed_height']['url'];
+                // assign image element to newImg variable
+                var newImg = $('<img>');
+                // give image element stillUrl, animated & src attr
+                newImg.attr('data-still', stillImgUrl);
+                newImg.attr('data-animate', animateImgUrl);
+                newImg.attr('src', stillImgUrl);
+                newImg.addClass('class','gifsection');
+                // add image to DOM
+                $('.giphyImg').append(newImg);
+            }
+            // test
+            console.log('The button value is = ' + btnVal);
+            console.log('Still image Url = ' + stillImgUrl);
+            console.log('Animated image Url = ' + animateImgUrl);
+        });
+    }
+
+    var giphyAnimate = function () {
+        // test
+        console.log(true);
+    }
+
+
+    // main
+    createBtn();
+    submit();
+    $(document).on('click', '.giphy', displayGiphy);
+    $(document).on('click', 'data', giphyAnimate);
+});
