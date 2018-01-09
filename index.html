@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+	.row {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+    	#gifs div {
+    		width: 200px;
+    		height: 200px;
+    		background-size: cover;
+    		background-position: center center;
+    		margin: 0 10px 10px 0;
+    	}
+    </style>
+</head>
+<body>
+	
+    <p>add a topic</p>
+	<input type="text" id="search">
+	<button id="submit">Submit</button>
+
+    	<div id="gifs" class="row"></div>
+
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    	<script type="text/javascript" src="app.js"></script>
+</body>
+</html>
