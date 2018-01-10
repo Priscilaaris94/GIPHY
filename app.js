@@ -29,7 +29,7 @@ $(document).ready(function () {
 
     var submit = function () {
         //    when submit btn is clicked...
-        $('#submit-btn').on('click', function (event) {
+        $('#submitBtn').on('click', function (event) {
             // prevent from default form/ input from happening
             event.preventDefault();
             //   get input value
