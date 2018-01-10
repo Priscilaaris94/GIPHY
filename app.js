@@ -1,10 +1,9 @@
 $(document).ready(function () {
     // global varibles
     var topics = ['hockey', 'futball', 'track', 'horse back', 'beach volleyball', 'lacrosse',
-       'softball', 'swim', 'fireworks', 'kites', 'airplanes', 'shoes',
+        'softball', 'swim', 'fireworks', 'kites', 'airplanes', 'shoes',
         'clothes', 'rollercoaster', 'coding', 'Denvor', 'snow'
     ];
-
 
     // functions
 
@@ -44,9 +43,6 @@ $(document).ready(function () {
             console.log(topics);
 
         });
-        //click handler
-        // when the new images are clicked, if the images is animating, swap the data-still attribute value with the src attribute
-        //
     }
 
     var displayGiphy = function () {
@@ -54,11 +50,11 @@ $(document).ready(function () {
         var btnVal = $(this).attr('data-type');
         // api URL and key
         var apiKey = "dc6zaTOxFJmzC";
-        var apiUrl = "http://api.giphy.com/v1/gifs/search?q=" + btnVal+  "&api_key=" + apiKey;
+        var apiUrl = "http://api.giphy.com/v1/gifs/search?q=" + btnVal + "&api_key=" + apiKey;
         $.ajax({
             url: apiUrl,
             method: 'GET'
-        }).done(function(response) {
+        }).done(function (response) {
             // remove images when a new button is clicked
             $('.giphyImg').empty();
 
@@ -72,7 +68,7 @@ $(document).ready(function () {
                 newImg.attr('data-still', stillImgUrl);
                 newImg.attr('data-animate', animateImgUrl);
                 newImg.attr('src', stillImgUrl);
-                newImg.addClass('class','gifsection');
+                newImg.addClass('class', '.giphyImg');
                 // add image to DOM
                 $('.giphyImg').append(newImg);
             }
@@ -84,14 +80,28 @@ $(document).ready(function () {
     }
 
     var giphyAnimate = function () {
-        // test
-        console.log(true);
+        // set condition to still or animated
+        giphyCondition = $(this).data('type');
+        stillUrl = $(this).data('still');
+        animateUrl = $(this).data('animate');
+        if (giphyCondition === 'still') {
+            // animates image by changing url
+            $(this).attr('src', animateUrl);
+            // switch the data-type to animate
+            $(this).data('type', 'animate');
+        } else if (giphyCondition === 'animate') {
+            // change src to stil 
+            $(this).attr('src', stillUrl);
+            // switch data-type to still
+            $(this).data('type', 'still');
+            // test
+            console.log(true);
+        }
     }
-
 
     // main
     createBtn();
     submit();
     $(document).on('click', '.giphy', displayGiphy);
-    $(document).on('click', 'data', giphyAnimate);
+    $(document).on('click', '.giphyImg', giphyAnimate);
 });
