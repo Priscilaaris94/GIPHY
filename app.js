@@ -74,8 +74,8 @@ $(document).ready(function () {
             }
             // test
             console.log('The button value is = ' + btnVal);
-            console.log('Still image Url = ' + stillImgUrl);
-            console.log('Animated image Url = ' + animateImgUrl);
+            console.log('Still image url = ' + stillImgUrl);
+            console.log('Animated image url = ' + animateImgUrl);
         });
     }
 
