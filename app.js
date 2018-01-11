@@ -67,8 +67,9 @@ $(document).ready(function () {
                 // give image element stillUrl, animated & src attr
                 newImg.attr('data-still', stillImgUrl);
                 newImg.attr('data-animate', animateImgUrl);
+                newImg.attr('data-type', 'still')
                 newImg.attr('src', stillImgUrl);
-                newImg.addClass('class', '.giphyImg');
+                newImg.addClass('giphyPic');
                 // add image to DOM
                 $('.giphyImg').append(newImg);
             }
@@ -103,5 +104,5 @@ $(document).ready(function () {
     createBtn();
     submit();
     $(document).on('click', '.giphy', displayGiphy);
-    $(document).on('click', '.giphyImg', giphyAnimate);
+    $(document).on('click', '.giphyPic', giphyAnimate);
 });
