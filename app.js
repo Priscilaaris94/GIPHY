@@ -50,7 +50,7 @@ $(document).ready(function () {
         var btnVal = $(this).attr('data-type');
         // api URL and key
         var apiKey = "dc6zaTOxFJmzC";
-        var apiUrl = "http://api.giphy.com/v1/gifs/search?q=" + btnVal + "&api_key=" + apiKey;
+        var apiUrl = "https://api.giphy.com/v1/gifs/search?q=" + btnVal + "&api_key=" + apiKey;
         $.ajax({
             url: apiUrl,
             method: 'GET'
